@@ -1,30 +1,25 @@
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import type { UserConfig } from 'vite'
 
-export default defineConfig(({ mode }: { mode: string }): UserConfig => {
-  // Load env variables based on mode (development/production)
-  const env = loadEnv(mode, process.cwd(), 'VITE_')
-
-  return {
-    plugins: [react()],
-    preview: {
-      host: true,
-      port: 3000,
-      strictPort: true,
-      // To Be used after .env file is fixed
-      // allowedHosts: env.VITE_ALLOWED_HOSTS?.split(',') || []
-      allowedHosts: [
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  css: {
+    postcss: './postcss.config.js'  // Explicit path
+  },
+  preview: {
+    host: true, // Listen on all interfaces
+    port: 3000,
+    strictPort: true,
+    allowedHosts: [
       'localhost',
       '127.0.0.1',
       'docker-init-test.onrender.com',
       '.onrender.com' // Allow all Render subdomains
     ]
-    },
-    server: {
-      host: true,
-      port: 3000
-    }
+  },
+  server: {
+    host: true, // Development mode
+    port: 3000
   }
-}
-);
+})
