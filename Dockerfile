@@ -14,4 +14,5 @@ COPY package*.json ./
 RUN npm ci --omit=dev
 
 EXPOSE 3000
-CMD ["npx", "vite", "preview", "--host", "0.0.0.0", "--port", "3000"]
+# Add explicit host/port flags:
+CMD ["npx", "vite", "preview", "--host", "0.0.0.0", "--port", "3000", "--strict-port"]
