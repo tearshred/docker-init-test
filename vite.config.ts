@@ -8,7 +8,7 @@ export default defineConfig({
     postcss: './postcss.config.js'  // Explicit path
   },
   preview: {
-    host: true, // Listen on all interfaces
+    host: '0.0.0.0', // Listen on all interfaces
     port: 3000,
     strictPort: true,
     allowedHosts: [
@@ -16,7 +16,8 @@ export default defineConfig({
       '127.0.0.1',
       'docker-init-test.onrender.com',
       '.onrender.com' // Allow all Render subdomains
-    ]
+    ],
+    cors: true
   },
   server: {
     host: true, // Development mode
