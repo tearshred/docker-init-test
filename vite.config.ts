@@ -1,26 +1,21 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  css: {
-    postcss: './postcss.config.js'  // Explicit path
-  },
-  preview: {
-    host: '0.0.0.0',
-    port: 3000,
-    strictPort: true,
-    cors: {
-      origin: '*',
-      methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE']
+  build: {
+    outDir: 'dist',           // Output folder for production build
+    emptyOutDir: true,        // Clear the directory before building
+    assetsDir: 'assets',      // Nest assets in /assets subdirectory
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name]-[hash][extname]',  // Cache-busting filenames
+        entryFileNames: 'assets/[name]-[hash].js'         // Hashed JS files
+      }
     }
   },
   server: {
-    host: true,
-    port: 3000,
-    fs: {
-      strict: false
-    }
+    host: true,               // Allow LAN access during development
+    port: 3000                // Dev server port
   }
 })

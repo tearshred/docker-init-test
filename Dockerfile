@@ -1,22 +1,20 @@
-# Build stage
+# Stage 1: Build the Vite app
 FROM node:20-alpine AS builder
 WORKDIR /app
-# 1. First copy ONLY package files
+# Secure, reproducible install
+RUN npm ci --no-audit                   
 COPY package*.json ./
-# 2. Clean install with cache cleanup
-RUN npm cache clean --force && \
-    npm ci --no-audit
-# Copy remaining files
+# Creates /dist folder
 COPY . .
-RUN npm run build
+RUN npm run build                       
 
-# Production stage (using Node.js instead of Nginx)
-FROM node:20-alpine
-WORKDIR /app
-COPY --from=builder /app/dist ./dist
-COPY package*.json ./
-RUN npm ci --omit=dev
-
-EXPOSE 3000
-# Add explicit host/port flags:
-CMD ["sh", "-c", "npx vite preview --host 0.0.0.0 --port 3000 --cors --strict-port false"]
+# Stage 2: NGINX Server
+FROM nginx:alpine
+# Copy built files
+COPY --from=builder /app/dist /usr/share/nginx/html  
+# Apply our config
+COPY nginx.conf /etc/nginx/conf.d/default.conf      
+# Fix permissions
+RUN chown -R nginx:nginx /usr/share/nginx/html      
+# Standard HTTP port
+EXPOSE 80                                          
