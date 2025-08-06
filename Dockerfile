@@ -1,8 +1,12 @@
 # Build stage
 FROM node:20-alpine AS builder
 WORKDIR /app
+# 1. First copy ONLY package files
 COPY package*.json ./
-RUN npm ci
+# 2. Clean install with cache cleanup
+RUN npm cache clean --force && \
+    npm ci --no-audit
+# Copy remaining files
 COPY . .
 RUN npm run build
 
