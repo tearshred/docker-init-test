@@ -8,19 +8,19 @@ export default defineConfig({
     postcss: './postcss.config.js'  // Explicit path
   },
   preview: {
-    host: '0.0.0.0', // Listen on all interfaces
+    host: '0.0.0.0',
     port: 3000,
     strictPort: true,
-    allowedHosts: [
-      'localhost',
-      '127.0.0.1',
-      'docker-init-test.onrender.com',
-      '.onrender.com' // Allow all Render subdomains
-    ],
-    cors: true
+    cors: {
+      origin: '*',
+      methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE']
+    }
   },
   server: {
-    host: true, // Development mode
-    port: 3000
+    host: true,
+    port: 3000,
+    fs: {
+      strict: false
+    }
   }
 })
