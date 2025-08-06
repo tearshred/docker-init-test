@@ -8,11 +8,14 @@ export default defineConfig({
     postcss: './postcss.config.js'  // Explicit path
   },
   preview: {
-    host: true, // Allow all hosts
+    host: '0.0.0.0', // Explicitly allow all hosts
     port: 3000,
     strictPort: true,
+    // Alternative if you want strict security:
+    // allowedHosts: ['docker-init-test.onrender.com']
   },
   server: {
     port: 3000,
+    host: true
   }
 })
