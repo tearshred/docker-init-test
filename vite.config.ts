@@ -12,7 +12,14 @@ export default defineConfig(({ mode }: { mode: string }): UserConfig => {
       host: true,
       port: 3000,
       strictPort: true,
-      allowedHosts: env.VITE_ALLOWED_HOSTS?.split(',') || []
+      // To Be used after .env file is fixed
+      // allowedHosts: env.VITE_ALLOWED_HOSTS?.split(',') || []
+      allowedHosts: [
+      'localhost',
+      '127.0.0.1',
+      'docker-init-test.onrender.com',
+      '.onrender.com' // Allow all Render subdomains
+    ]
     },
     server: {
       host: true,
