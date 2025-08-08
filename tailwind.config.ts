@@ -6,7 +6,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        logo: ['Bebas Neue', 'sans-serif'], // Logo Font
+        body: ['Lato', 'sans-serif'],         // Body Font
+      }
+    },
   },
   plugins: [],
 } satisfies Config
