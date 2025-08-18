@@ -37,10 +37,10 @@ function App() {
         </button>
       </div>
     </div>
-      <h1>Rudy is awesome</h1>
+      <h1>Carlos is gordito</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          awesomeness count is {count}
+          Calorie count is {count}
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
